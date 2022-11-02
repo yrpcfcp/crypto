@@ -11,20 +11,20 @@ import { RouterLink, RouterView } from 'vue-router'
   <main>
     <ul>
       <li>
-        ATOM<br><div>{{ atomPrice }}</div>
+        ATOM<br><div>R$ {{ atomPrice }}</div>
       </li>
       <li>
         BITCOIN<br>
-        <div>{{ bitCoinPrice }}</div>
+        <div>R$ {{ bitCoinPrice }}.00</div>
       </li>
       <li>
-        DAXCI COIN<br><div>{{ daxciCoinPrice }}</div>
+        DAXCI<br><div>R$ {{ daxciCoinPrice }}</div>
       </li>
       <li>
-        ETHEREUM <br>{{ ethereumPrice }}
+        ETHEREUM <br><div>R$ {{ ethereumPrice }}</div>
       </li>
       <li>
-        LUNA <br>{{ lunaPrice }}
+        LUNA(Terra Luna Classic)<br><div>R$ {{ lunaPrice }}</div>
       </li>
     </ul>
   </main>
@@ -39,6 +39,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
   
   </article>
+  <footer>Data provided by CoinGecko</footer>
 </template>
 
 
@@ -58,12 +59,22 @@ export default {
   }, methods: {
     async created() {
       try {
-        const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&amp;vs_currencies=usd&amp;include_market_cap=true&amp;include_24hr_vol=true&amp;include_last_updated_at=true');
+        const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
         console.log(res);
-        const bitCoinPrice = res.data.bitcoin.usd
+        let atomPrice = res.data['bitcoin-atom'].brl
+        let bitCoinPrice = res.data.bitcoin.brl
+        let daxciCoinPrice = res.data.dacxi.brl
+        let ethereumPrice = res.data.ethereum.brl
+        let lunaPrice = res.data['terra-luna'].brl
+        
+        this.atomPrice = atomPrice;
         this.bitCoinPrice = bitCoinPrice;
+        this.daxciCoinPrice = daxciCoinPrice;
+        this.ethereumPrice = ethereumPrice;
+        this.lunaPrice = lunaPrice;
 
-
+        
+        
       } catch (error) {
         console.error(error);
       }
@@ -125,5 +136,12 @@ ul {
   display: flex;
   justify-content: space-evenly;
   list-style-type: none;
+}
+
+footer{
+  display:flex;
+  font-size: 12px;
+  justify-content:center;
+  margin: 70px 0px 0px 0px;
 }
 </style>
