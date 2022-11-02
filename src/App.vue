@@ -26,10 +26,14 @@ import { RouterLink, RouterView } from 'vue-router'
         LUNA(Terra Luna Classic)<br><div>R$ {{ lunaPrice }}</div>
       </li>
     </ul>
+    <br><br>
+
   </main>
+  
   <article>
+    <h2>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO</h2>
     <label for="data">
-      <h1>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO</h1>
+      
     </label>
     <br><br>
     <div id="data-input">
@@ -41,11 +45,12 @@ import { RouterLink, RouterView } from 'vue-router'
   <option value="valor5">LUNA</option>
 </select>&nbsp;&nbsp;
 
-    <input type="date" id="date" name="date">&nbsp;&nbsp;&nbsp;&nbsp;<button v-on:click="getUser()">GET PRICES</button>
+
+    <input type="date" id="date" name="date">&nbsp;&nbsp;&nbsp;&nbsp;<button v-on:click="getPrice()">GET PRICES</button>
     </div>
 
     <h4>preço em {{date}}: (preço)</h4>
-    <button v-on:click="getUser()">GET PRICES</button>
+    
 
   
   </article>
@@ -55,7 +60,13 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <script>
 import axios from 'axios'
+import Multiselect from 'vue-multiselect';
+
 export default {
+ el:'html',
+ mounted:function(){
+        this.getPrice() 
+  },
   data() {
     return {
 
@@ -63,47 +74,76 @@ export default {
       bitCoinPrice: 0,
       daxciCoinPrice: 0,
       ethereumPrice: 0,
-      lunaPrice: 0
+      lunaPrice: 0,
+      priceHistory: []
       
     }
   }, methods: {
-//   getUser:  async function() {
-//   try {
-//     const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
-//     console.log(res)
-//     let atomPrice = res.data['bitcoin-atom'].brl
-//     let bitCoinPrice = res.data.bitcoin.brl
-//     let daxciCoinPrice = res.data.dacxi.brl
-//     let ethereumPrice = res.data.ethereum.brl
-//     let lunaPrice = res.data['terra-luna'].brl
+   
+  getPrice:  async function() {
+  try {
+    const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
+    console.log(res)
+    let atomPrice = res.data['bitcoin-atom'].brl
+    let bitCoinPrice = res.data.bitcoin.brl
+    let daxciCoinPrice = res.data.dacxi.brl
+    let ethereumPrice = res.data.ethereum.brl
+    let lunaPrice = res.data['terra-luna'].brl
     
-//     this.atomPrice = atomPrice;
-//     this.bitCoinPrice = bitCoinPrice;
-//     this.daxciCoinPrice = daxciCoinPrice;
-//     this.ethereumPrice = ethereumPrice;
-//     this.lunaPrice = lunaPrice;
+    this.atomPrice = atomPrice;
+    this.bitCoinPrice = bitCoinPrice;
+    this.daxciCoinPrice = daxciCoinPrice;
+    this.ethereumPrice = ethereumPrice;
+    this.lunaPrice = lunaPrice;
 
-//   } catch (error) {
-//     console.error(error);
-//   }
-// setInterval(()=>{ 
-// this.getUser()
-// }, 120000);
-// }
+  } catch (error) {
+    console.error(error);
   }
+setInterval(()=>{ 
+this.getUser()
+}, 30000);
+}, 
+getOldPrice: async function(){
+  try{
+    const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
+    console.log(res)
+    let atomPrice = res.data['bitcoin-atom'].brl
+    let bitCoinPrice = res.data.bitcoin.brl
+    let daxciCoinPrice = res.data.dacxi.brl
+    let ethereumPrice = res.data.ethereum.brl
+    let lunaPrice = res.data['terra-luna'].brl
+    
+    this.atomPrice = atomPrice;
+    this.bitCoinPrice = bitCoinPrice;
+    this.daxciCoinPrice = daxciCoinPrice;
+    this.ethereumPrice = ethereumPrice;
+    this.lunaPrice = lunaPrice;
+
+  } catch (error) {
+    console.error(error);
+  }
+
+  }
+
+}  
 }
+
+
 
 
 </script>
 
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,700;1,400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
 body {
   background-color: black;
   color: aqua;
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Electrolize', sans-serif;
+}
+
+article{
+  margin: 400px 0 0 0;
 }
 
 button{
@@ -114,9 +154,20 @@ button{
   padding: 6px;
 }
 
+.caption-button{
+  text-align:center;
+  margin: 10px auto;
+}
+
+#app > main > button{
+  display:flex;
+  justify-content:center;
+  margin: 20px auto;
+}
+
 header {
   color: black;
-  padding: 35px;
+  padding: 25px;
 }
 
 header h1 {
@@ -144,12 +195,10 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin: 30px 0 0 0;
+  
 }
 
-/* input{
-  all:unset;
-} */
 
 .select{
   all:unset;
