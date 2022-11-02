@@ -32,20 +32,9 @@ import { RouterLink, RouterView } from 'vue-router'
       <h1>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO</h1>
     </label>
     <br><br>
-    <div id="data-input">
-  <select ID="select" name="select">
-  <option value="valor1">ATOM</option>
-  <option value="valor2" selected>BITCOIN</option>
-  <option value="valor3">DACXI</option>
-  <option value="valor4">ETHEREUM</option>
-  <option value="valor5">LUNA</option>
-</select>&nbsp;&nbsp;
-
-    <input type="date" id="date" name="date">&nbsp;&nbsp;&nbsp;&nbsp;<button v-on:click="getUser()">GET PRICES</button>
-    </div>
-
+    <input type="date" id="date" name="date">
     <h4>preço em {{date}}: (preço)</h4>
-    <button v-on:click="getUser()">GET PRICES</button>
+    <button v-on:click="getUser()">get prices</button>
 
   
   </article>
@@ -67,29 +56,29 @@ export default {
       
     }
   }, methods: {
-//   getUser:  async function() {
-//   try {
-//     const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
-//     console.log(res)
-//     let atomPrice = res.data['bitcoin-atom'].brl
-//     let bitCoinPrice = res.data.bitcoin.brl
-//     let daxciCoinPrice = res.data.dacxi.brl
-//     let ethereumPrice = res.data.ethereum.brl
-//     let lunaPrice = res.data['terra-luna'].brl
+  getUser:  async function() {
+  try {
+    const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
+    console.log(res)
+    let atomPrice = res.data['bitcoin-atom'].brl
+    let bitCoinPrice = res.data.bitcoin.brl
+    let daxciCoinPrice = res.data.dacxi.brl
+    let ethereumPrice = res.data.ethereum.brl
+    let lunaPrice = res.data['terra-luna'].brl
     
-//     this.atomPrice = atomPrice;
-//     this.bitCoinPrice = bitCoinPrice;
-//     this.daxciCoinPrice = daxciCoinPrice;
-//     this.ethereumPrice = ethereumPrice;
-//     this.lunaPrice = lunaPrice;
+    this.atomPrice = atomPrice;
+    this.bitCoinPrice = bitCoinPrice;
+    this.daxciCoinPrice = daxciCoinPrice;
+    this.ethereumPrice = ethereumPrice;
+    this.lunaPrice = lunaPrice;
 
-//   } catch (error) {
-//     console.error(error);
-//   }
-// setInterval(()=>{ 
-// this.getUser()
-// }, 120000);
-// }
+  } catch (error) {
+    console.error(error);
+  }
+setInterval(()=>{ 
+this.getUser()
+}, 90000);
+}
   }
 }
 
@@ -104,14 +93,6 @@ body {
   background-color: black;
   color: aqua;
   font-family: 'Rubik', sans-serif;
-}
-
-button{
-  background-color:aqua;
-  border: 2px transparent;
-  border-radius: 15px;
-  font-weight: bold;
-  padding: 6px;
 }
 
 header {
@@ -147,20 +128,9 @@ article {
   margin-top: 100px;
 }
 
-/* input{
-  all:unset;
-} */
-
-.select{
-  all:unset;
+input {
   
-}
-
-.date {
-  display:flex;
-  flex-direction: row;
-  justify-content: space-evenly;  
-  width: 45%;
+  width: 15%;
 }
 
 ul {
