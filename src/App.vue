@@ -31,22 +31,19 @@ import { RouterLink, RouterView } from 'vue-router'
   </main>
   
   <article>
-    <h2>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO</h2>
-    <label for="data">
-      
-    </label>
-    <br><br>
+    <h2>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO</h2><br><br><br>
+    
     <div id="data-input">
   <select ID="select" name="select">
-  <option value="valor1">ATOM</option>
-  <option value="valor2" selected>BITCOIN</option>
-  <option value="valor3">DACXI</option>
-  <option value="valor4">ETHEREUM</option>
-  <option value="valor5">LUNA</option>
-</select>&nbsp;&nbsp;
-
-
-    <input type="date" id="date" name="date">&nbsp;&nbsp;&nbsp;&nbsp;<button v-on:click="getPrice()">GET PRICES</button>
+  <option v-for="result in results" value="valor1">{{result}}</option>
+  <option v-for="result in results" value="valor1">{{result}}</option>
+  <option v-for="result in results" value="valor1">{{result}}</option>
+  <option v-for="result in results" value="valor1">{{result}}</option>
+  <option v-for="result in results" value="valor1">{{result}}</option>
+  <option v-for="result in results" value="valor1">{{result}}</option>
+  
+  </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="date" id="date" name="date">&nbsp;&nbsp;&nbsp;&nbsp;<button v-on:click="getOldPrice()">GET PRICES</button>
     </div>
 
     <h4>preço em {{date}}: (preço)</h4>
@@ -60,9 +57,10 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <script>
 import axios from 'axios'
-import Multiselect from 'vue-multiselect';
+
 
 export default {
+  
  el:'html',
  mounted:function(){
         this.getPrice() 
@@ -75,54 +73,49 @@ export default {
       daxciCoinPrice: 0,
       ethereumPrice: 0,
       lunaPrice: 0,
-      priceHistory: []
+      results: [],
+      selectedResult: null
       
     }
   }, methods: {
    
-  getPrice:  async function() {
-  try {
-    const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
-    console.log(res)
-    let atomPrice = res.data['bitcoin-atom'].brl
-    let bitCoinPrice = res.data.bitcoin.brl
-    let daxciCoinPrice = res.data.dacxi.brl
-    let ethereumPrice = res.data.ethereum.brl
-    let lunaPrice = res.data['terra-luna'].brl
-    
-    this.atomPrice = atomPrice;
-    this.bitCoinPrice = bitCoinPrice;
-    this.daxciCoinPrice = daxciCoinPrice;
-    this.ethereumPrice = ethereumPrice;
-    this.lunaPrice = lunaPrice;
+  getPrice:  async function(){
+   try {
+  const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
+  console.log(res)
+  let atomPrice = res.data['bitcoin-atom'].brl
+  let bitCoinPrice = res.data.bitcoin.brl
+  let daxciCoinPrice = res.data.dacxi.brl
+  let ethereumPrice = res.data.ethereum.brl
+  let lunaPrice = res.data['terra-luna'].brl
+  
+  this.atomPrice = atomPrice;
+  this.bitCoinPrice = bitCoinPrice;
+  this.daxciCoinPrice = daxciCoinPrice;
+  this.ethereumPrice = ethereumPrice;
+  this.lunaPrice = lunaPrice;
 
-  } catch (error) {
-    console.error(error);
-  }
-setInterval(()=>{ 
-this.getUser()
-}, 30000);
-}, 
+} catch (error) {
+  console.error(error);
+}
+// setInterval(()=>{ 
+// this.getPrice()
+// }, 30000); -->
+  },
+
+
 getOldPrice: async function(){
   try{
     const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
     console.log(res)
-    let atomPrice = res.data['bitcoin-atom'].brl
-    let bitCoinPrice = res.data.bitcoin.brl
-    let daxciCoinPrice = res.data.dacxi.brl
-    let ethereumPrice = res.data.ethereum.brl
-    let lunaPrice = res.data['terra-luna'].brl
+    this.results = res.data
+    console.log(res)
+    this.results.push(res)
     
-    this.atomPrice = atomPrice;
-    this.bitCoinPrice = bitCoinPrice;
-    this.daxciCoinPrice = daxciCoinPrice;
-    this.ethereumPrice = ethereumPrice;
-    this.lunaPrice = lunaPrice;
-
   } catch (error) {
     console.error(error);
   }
-
+  
   }
 
 }  
