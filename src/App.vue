@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 <template>
   <header>
-    <h1>TITLE</h1>
+    <h1>CRYPTO PRICES</h1>
   </header><br>
   <main>
     <ul>
@@ -31,25 +31,22 @@ import { RouterLink, RouterView } from 'vue-router'
   </main>
   
   <article>
-    <h2>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO</h2><br><br><br>
+    <h2>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO </h2><br><br>
+    <p>CRYPTOS SUPORTADAS: terra-luna, bitcoin, dacxi, ethereum e bitcoin-atom</p>
+     
+
+    <div class="coin-list">
+
+           
+    <input v-model="coin"  type="text" id="coin" name="coin" placeholder="insira o nome da crypto"> 
+    <input v-model="date"  type="date" id="date" name="date">
+    <button @click="getOldPrice()">PESQUISAR PREÇOS</button>
     
-    <div class="coin-list">
-    <p>BITCOIN-ATOM</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceAtom()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsAtom}}</span>
-    </div>
-    <div class="coin-list">
-  <!-- <option v-for="result in results" value="valor1">{{result}}</option> -->
-   <p>BITCOIN</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceBitcoin()">GET PRICES</button>&nbsp;&nbsp;  <span>{{results}}</span>
-    </div>
-    <div class="coin-list">
-    <p>DACXI</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceDacxi()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsDacxi}}</span>
-    </div>
-    <div class="coin-list">
-    <p>ETHEREUM</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceEthereum()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsEthereum}}</span>
-    </div>
-    <div class="coin-list">
-    <p>LUNA</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceLuna()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsLuna}}</span>
-    </div>
     
+ 
+  </div>
+  <h2 class="preco-historico">&nbsp;&nbsp;&nbsp;O preço em &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{date}} era R$&nbsp;&nbsp;{{coinHistoricValue}}</h2>
+
   
   </article>
   <footer>Data provided by CoinGecko</footer>
@@ -68,21 +65,32 @@ export default {
   },
   data() {
     return {
-
+      
+      date: '',
+      coin: '',
+      coinHistoricValue: '',
       atomPrice: 0,
       bitCoinPrice: 0,
       daxciCoinPrice: 0,
       ethereumPrice: 0,
       lunaPrice: 0,
-      results:  ' ',
-      resultsAtom: ' ',
-      resultsDaxci: ' ',
-      resultsEthereum:' ',
-      resultsLuna: ' ',
-      selectedResult: null
+      results:0,
+      resultsAtom: 0,
+      resultsDaxci: 0,
+      resultsEthereum: 0,
+      resultsLuna: 0,
+      selectedResult: null,
+      coins:['bitcoin-atom', 'bitcoin', 'dacxi', 'ethereum', 'terra-luna'],
       
     }
   }, methods: {
+    
+    selectCoin(){
+      selectedCoin.push(coin)
+      console.log(selectedCoin)
+    },
+
+   
    
   getPrice:  async function(){
    try {
@@ -103,26 +111,172 @@ export default {
 } catch (error) {
   console.error(error);
 }
-setInterval(()=>{ 
+setInterval( () =>{ 
 this.getPrice()
-}, 30000); 
+}, 90000); 
   },
 
 
-getOldPriceBitcoin: async function(){
+
+getOldPrice: async function(){
+  
+  
+
+  let apiPath = 'https://api.coingecko.com/api/v3/coins/'
+  let apiPath2 = '/history?date='
+  let apiPath3 = '&localization=false`'
+  let coin = this.coin
+  let date = this.date
+
+  date = date.match(/\d+/g)
+  date = `${date[2]}-${date[1]}-${date[0]}`
+  
+  
+ 
+
+  var url = `https://api.coingecko.com/api/v3/coins/${coin}/history?date=${date}&localization=false`
+
+ 
+ 
+  
   try{
-    const res = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/history?date=30-12-2021&localization=false');
+    let res = await axios.get(url);
     console.log(res)
-    this.results = res.data.market_data.current_price.brl
-    console.log(this.results)
     
+    let coinHistoricValue = res.data.market_data.current_price.brl
+    this.coinHistoricValue = coinHistoricValue
     
+   
   } catch (error) {
     console.error(error);
   }
+ 
+}
+}
+}
+
+
+
+
+
+
+</script>
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+body {
+  background-color: black;
+  color: aqua;
+  font-family: 'Electrolize', sans-serif;
+}
+
+
+button{
+  background-color:aqua;
+  border: 2px transparent;
+  border-radius: 15px;
+  font-weight: bold;
+  padding: 6px;
+}
+
+.caption-button{
+  text-align:center;
+  margin: 10px auto;
+}
+
+
+
+#app > main > button{
+  display:flex;
+  justify-content:center;
+  margin: 20px auto;
+}
+
+.coin-list{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+}
+
+
+#date{
+  all:unset;
+}
+
+header {
+  color: black;
+  padding: 25px;
+}
+
+header h1 {
+  color: aqua;
+  text-align: center;
+  margin: 5px 0px 0px 0px;
+  font-size: 40px;
+}
+
+h2 {
+  color: aqua;
+  margin: 70px 0px 0px 0px;
+  text-align: center;
+}
+
+h3 {
+  color: aqua;
+  margin: 100px 0px 0px 0px;
+  text-align: center;
+}
+
+p{
+  text-align:center;
+  margin: -25px 0 60px 0;
+}
+
+.preco-historico{
+  margin: 30px 0 0 0;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: -50px 0 0 0;   
+}
+
+input{
+  all:unset;
+}
+
+.select{
+  all:unset;
   
-  },
-  getOldPriceAtom: async function(){
+}
+
+.date {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;  
+  width: 45%;
+}
+
+ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+}
+
+footer{
+  display:flex;
+  font-size: 12px;
+  justify-content:center;
+  margin: 130px 0px 0px 0px;
+}
+</style>
+
+
+<!-- getOldPriceAtom: async function(){
   try{
     const res = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin-atom/history?date=30-12-2021&localization=false');
     console.log(res)
@@ -173,120 +327,4 @@ getOldPriceLuna: async function(){
   } catch (error) {
     console.error(error);
   }
-}
-  
-  }
-  
-  }
-
-
-
-
-
-
-</script>
-
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
-body {
-  background-color: black;
-  color: aqua;
-  font-family: 'Electrolize', sans-serif;
-}
-
-article{
-  margin: 400px 0 0 0;
-}
-
-button{
-  background-color:aqua;
-  border: 2px transparent;
-  border-radius: 15px;
-  font-weight: bold;
-  padding: 6px;
-}
-
-.caption-button{
-  text-align:center;
-  margin: 10px auto;
-}
-
-#app > main > button{
-  display:flex;
-  justify-content:center;
-  margin: 20px auto;
-}
-
-.coin-list{
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content:space-between;
-}
-
-
-#date{
-  all:unset;
-}
-
-header {
-  color: black;
-  padding: 25px;
-}
-
-header h1 {
-  color: aqua;
-  text-align: center;
-  margin: 5px 0px 0px 0px;
-  font-size: 40px;
-}
-
-h2 {
-  color: aqua;
-  margin: 100px 0px 0px 0px;
-  text-align: center;
-}
-
-h3 {
-  color: aqua;
-  margin: 100px 0px 0px 0px;
-  text-align: center;
-}
-
-
-
-article {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 30px 0 0 0;
-  
-}
-
-
-.select{
-  all:unset;
-  
-}
-
-.date {
-  display:flex;
-  flex-direction: row;
-  justify-content: space-evenly;  
-  width: 45%;
-}
-
-ul {
-  display: flex;
-  justify-content: space-evenly;
-  list-style-type: none;
-}
-
-footer{
-  display:flex;
-  font-size: 12px;
-  justify-content:center;
-  margin: 70px 0px 0px 0px;
-}
-</style>
+} -->
