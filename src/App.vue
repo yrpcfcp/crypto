@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 <template>
   <header>
-    <h1>PRICE GENERATOR</h1>
+    <h1>TITLE</h1>
   </header><br>
   <main>
     <ul>
@@ -33,22 +33,23 @@ import { RouterLink, RouterView } from 'vue-router'
   <article>
     <h2>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO</h2><br><br><br>
     
-    <div id="data-input">
-  <select ID="select" name="select">
-  <option v-for="result in results" value="valor1">{{result}}</option>
-  <option v-for="result in results" value="valor1">{{result}}</option>
-  <option v-for="result in results" value="valor1">{{result}}</option>
-  <option v-for="result in results" value="valor1">{{result}}</option>
-  <option v-for="result in results" value="valor1">{{result}}</option>
-  <option v-for="result in results" value="valor1">{{result}}</option>
-  
-  </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <input type="date" id="date" name="date">&nbsp;&nbsp;&nbsp;&nbsp;<button v-on:click="getOldPrice()">GET PRICES</button>
+    <div class="coin-list">
+    <p>BITCOIN-ATOM</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceAtom()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsAtom}}</span>
     </div>
-
-    <h4>preço em {{date}}: (preço)</h4>
+    <div class="coin-list">
+  <!-- <option v-for="result in results" value="valor1">{{result}}</option> -->
+   <p>BITCOIN</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceBitcoin()">GET PRICES</button>&nbsp;&nbsp;  <span>{{results}}</span>
+    </div>
+    <div class="coin-list">
+    <p>DACXI</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceDacxi()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsDacxi}}</span>
+    </div>
+    <div class="coin-list">
+    <p>ETHEREUM</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceEthereum()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsEthereum}}</span>
+    </div>
+    <div class="coin-list">
+    <p>LUNA</p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="date" name="date">&nbsp;&nbsp;<button v-on:click="getOldPriceLuna()">GET PRICES</button>&nbsp;&nbsp;  <span>{{resultsLuna}}</span>
+    </div>
     
-
   
   </article>
   <footer>Data provided by CoinGecko</footer>
@@ -73,7 +74,11 @@ export default {
       daxciCoinPrice: 0,
       ethereumPrice: 0,
       lunaPrice: 0,
-      results: [],
+      results:  ' ',
+      resultsAtom: ' ',
+      resultsDaxci: ' ',
+      resultsEthereum:' ',
+      resultsLuna: ' ',
       selectedResult: null
       
     }
@@ -98,28 +103,83 @@ export default {
 } catch (error) {
   console.error(error);
 }
-// setInterval(()=>{ 
-// this.getPrice()
-// }, 30000); -->
+setInterval(()=>{ 
+this.getPrice()
+}, 30000); 
   },
 
 
-getOldPrice: async function(){
+getOldPriceBitcoin: async function(){
   try{
-    const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
+    const res = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/history?date=30-12-2021&localization=false');
     console.log(res)
-    this.results = res.data
-    console.log(res)
-    this.results.push(res)
+    this.results = res.data.market_data.current_price.brl
+    console.log(this.results)
+    
     
   } catch (error) {
     console.error(error);
   }
   
+  },
+  getOldPriceAtom: async function(){
+  try{
+    const res = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin-atom/history?date=30-12-2021&localization=false');
+    console.log(res)
+    this.resultsAtom = res.data.market_data.current_price.brl
+   
+    
+    
+  } catch (error) {
+    console.error(error);
+  }
+  
+  },
+  getOldPriceDacxi: async function(){
+  try{
+    const res = await axios.get('https://api.coingecko.com/api/v3/coins/dacxi/history?date=30-12-2017&localization=false');
+    console.log(res)
+    this.resultsDaxci = res.data.market_data.current_price.brl
+   
+    
+    
+  } catch (error) {
+    console.error(error);
+  }
+  
+  },
+  getOldPriceEthereum: async function(){
+  try{
+    const res = await axios.get('https://api.coingecko.com/api/v3/coins/ethereum/history?date=30-12-2017&localization=false');
+    console.log(res)
+    this.resultsEthereum = res.data.market_data.current_price.brl
+    
+    
+    
+  } catch (error) {
+    console.error(error);
+  }
+  
+  },
+
+getOldPriceLuna: async function(){
+  try{
+    const res = await axios.get('https://api.coingecko.com/api/v3/coins/ethereum/history?date=30-12-2017&localization=false');
+    console.log(res)
+    this.resultsLuna = res.data.market_data.current_price.brl
+    
+    
+    
+  } catch (error) {
+    console.error(error);
+  }
+}
+  
+  }
+  
   }
 
-}  
-}
+
 
 
 
@@ -156,6 +216,18 @@ button{
   display:flex;
   justify-content:center;
   margin: 20px auto;
+}
+
+.coin-list{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+}
+
+
+#date{
+  all:unset;
 }
 
 header {
