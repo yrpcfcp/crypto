@@ -267,7 +267,7 @@ footer{
     display:flex;
     flex-direction:column;
     align-items:center;
-    margin-left: 35px; 
+    margin-left: 45px; 
      }
  .loading{
   display:none;
@@ -275,14 +275,14 @@ footer{
    ul{
     display:flex wrap;
     flex-direction:column;
-    margin: -20px 0 0 6px;
+    margin: -20px 0 0 20px;
     padding: 10px;
     max-width: 70%;
     text-align: center;
   }
   article{
     max-width:40%;
-    margin: -80px 0 0 80px;
+    margin: -80px 0 0 90px;
   }
 
   .coin-list{
@@ -301,7 +301,7 @@ footer{
   }
 
   #date{
-    margin-left: 45px;
+    margin-left: 47px;
   }
 
   #coin{
@@ -311,16 +311,16 @@ footer{
   button{
     padding-top: 10px;
     margin-top: 15px;
-    margin-left: 5px;
+    margin-right: 15px;
+    margin-left: 20px;
   }
 
-  footer{
-    margin: 80px 83px 0 0;
-  }
-
-  .preco-historico{
+    .preco-historico{
     font-size: 18px;
-    margin: 10px  0 0 5px;
+    margin: 10px  25px 0 15px;
+  }
+  footer{
+    margin: 80px 63px 0 0;
   }
 }
 
