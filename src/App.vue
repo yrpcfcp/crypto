@@ -32,7 +32,7 @@
   
   <article>
     <h2>CHOOSE THE DATE TO SEE THE HISTORICAL PRICE </h2><br><br>
-    <p>CRYPTOS SUPPORTED: terra-luna, bitcoin, dacxi, ethereum e bitcoin-atom</p>
+    <p>CRYPTOS SUPPORTED: terra-luna, bitcoin, dacxi, ethereum and bitcoin-atom</p>
      
   <div class="coin-list">
     <input v-model="coin"  type="text" id="coin" name="coin" placeholder="insert crypto's name"> 
