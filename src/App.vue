@@ -53,10 +53,10 @@ import axios from 'axios'
 
 export default {
   
-//  el:'html',
-//  mounted:function(){
-//         this.getPrice() 
-//   },
+ el:'html',
+ mounted:function(){
+        this.getPrice() 
+  },
   data() {
     return {
       
@@ -89,9 +89,9 @@ export default {
 } catch (error) {
   console.error(error);
 }
-// setInterval( () =>{ 
-// this.getPrice()
-// }, 90000); 
+setInterval( () =>{ 
+this.getPrice()
+}, 60000); 
   },
 
 
