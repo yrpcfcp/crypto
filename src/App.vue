@@ -302,7 +302,7 @@ footer{
   }
 
   #coin{
-    margin-left: 26px;
+    margin-left: 27px;
   }
 
   button{
@@ -313,7 +313,7 @@ footer{
 
     .preco-historico{
     font-size: 18px;
-    margin: 10px  25px 0 10px;
+    margin: 10px  25px 0 11px;
   }
   footer{
     margin: 80px 0 0 0;
