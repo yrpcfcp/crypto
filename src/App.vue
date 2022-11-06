@@ -82,7 +82,7 @@ export default {
   
   this.atomPrice = atomPrice;
   this.bitCoinPrice = bitCoinPrice;
-  this.dacxiCoinPrice = daxciCoinPrice;
+  this.dacxiCoinPrice = dacxiCoinPrice;
   this.ethereumPrice = ethereumPrice;
   this.lunaPrice = lunaPrice;
 
