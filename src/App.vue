@@ -11,19 +11,19 @@
   <main>
     <ul>
       <li>
-        ATOM<br><div>R$ {{ atomPrice }}</div>
+        ATOM<br><div>US$ {{ atomPrice }}</div>
       </li>
       <li>
-        BITCOIN<br><div>R$ {{ bitCoinPrice }}.00</div>
+        BITCOIN<br><div>US$ {{ bitCoinPrice }}.00</div>
       </li>
       <li>
-        DAXCI<br><div>R$ {{ daxciCoinPrice }}</div>
+        DAXCI<br><div>US$ {{ daxciCoinPrice }}</div>
       </li>
       <li>
-        ETHEREUM<br><div>R$ {{ ethereumPrice }}</div>
+        ETHEREUM<br><div>US$ {{ ethereumPrice }}</div>
       </li>
       <li>
-        LUNA(Terra Luna Classic)<br><div>R$ {{ lunaPrice }}</div>
+        LUNA(Terra Luna Classic)<br><div>US$ {{ lunaPrice }}</div>
       </li>
     </ul>
     <br><br>
@@ -31,15 +31,15 @@
   </main>
   
   <article>
-    <h2>ESCOLHA A DATA PARA VER O PREÇO HISTÓRICO </h2><br><br>
-    <p>CRYPTOS SUPORTADAS: terra-luna, bitcoin, dacxi, ethereum e bitcoin-atom</p>
+    <h2>CHOOSE THE DATE TO SEE THE HISTORICAL PRICE </h2><br><br>
+    <p>CRYPTOS SUPPORTED: terra-luna, bitcoin, dacxi, ethereum e bitcoin-atom</p>
      
   <div class="coin-list">
     <input v-model="coin"  type="text" id="coin" name="coin" placeholder="insira o nome da crypto"> 
     <input v-model="date"  type="date" id="date" name="date">
-    <button @click="getOldPrice()">PESQUISAR PREÇOS</button>
+    <button @click="getOldPrice()">GET PRICES</button>
   </div>
-      <h2 class="preco-historico">&nbsp;&nbsp;&nbsp;O preço em &nbsp;&nbsp;{{date}}&nbsp; era R$&nbsp;{{coinHistoricValue}}</h2>
+      <h2 class="preco-historico">&nbsp;&nbsp;&nbsp;The price on &nbsp;&nbsp;{{date}}&nbsp; was US$&nbsp;{{coinHistoricValue}}</h2>
 
   
   </article>
@@ -74,11 +74,11 @@ export default {
   getPrice:  async function(){
    try {
   const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
-  let atomPrice = res.data['bitcoin-atom'].brl
-  let bitCoinPrice = res.data.bitcoin.brl
-  let daxciCoinPrice = res.data.dacxi.brl
-  let ethereumPrice = res.data.ethereum.brl
-  let lunaPrice = res.data['terra-luna'].brl
+  let atomPrice = res.data['bitcoin-atom'].usd
+  let bitCoinPrice = res.data.bitcoin.usd
+  let daxciCoinPrice = res.data.dacxi.usd
+  let ethereumPrice = res.data.ethereum.usd
+  let lunaPrice = res.data['terra-luna'].usd
   
   this.atomPrice = atomPrice;
   this.bitCoinPrice = bitCoinPrice;
@@ -106,7 +106,7 @@ getOldPrice: async function(){
 
   try{
     let res = await axios.get(url);
-    let coinHistoricValue = res.data.market_data.current_price.brl
+    let coinHistoricValue = res.data.market_data.current_price.usd
     this.coinHistoricValue = coinHistoricValue
   
    
@@ -117,12 +117,6 @@ getOldPrice: async function(){
 }
 }
 }
-
-
-
-
-
-
 </script>
 
 
@@ -295,21 +289,28 @@ footer{
     flex-direction:column;
     align-items:center;
     padding: 15px 0 15px 0;
-    margin: -30px 0 0 0;
+    margin: -30px 0 0 -10px;
     max-width: 60%;
   }
 
   .coin-list input{
     align-items:center;
-    margin: 0 0 0 35px;
+    margin: 0 0 0 65px;
+  }
+
+  button{
+    padding-top: 10px;
+    margin-top: 15px;
+    margin-left: 25px;
   }
 
   footer{
-    margin: 80px 60px 0 0;
+    margin: 80px 0 0 10px;
   }
 
   .preco-historico{
     font-size: 18px;
+    margin: 10px  0 0 15px;
   }
 }
 
