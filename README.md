@@ -1,3 +1,5 @@
+
+
 # crypto
 
 The project was really fun to make. I was not aware of the coingecko api and neither I did know of axios. This is a wonderful tool to make API requests in a lean and concise manner.
@@ -13,3 +15,26 @@ Whatever the result of my application be I would like to thank you all for the o
 Best,
 
 Carlos
+
+
+
+
+
+Please install the following dependencies on your local machine:
+
+
+Dependencies necessary for local environment
+
+    "axios": "^1.1.3",
+    "pinia": "^2.0.23",
+    "vue": "^3.2.41",
+    "vue-axios": "^3.5.1",
+    "vue-router": "^4.1.5"
+
+
+Dev Dependencies necessary for local environment
+  
+  "@vitejs/plugin-vue": "^3.1.2",
+  "@vitejs/plugin-vue-jsx": "^2.0.1",
+  "vite": "^3.1.8",
+  "execa": "latest"
