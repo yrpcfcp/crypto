@@ -282,7 +282,7 @@ footer{
   }
   article{
     max-width:40%;
-    margin: -80px 0 0 125px;
+    margin: -80px 0 0 120px;
   }
 
   .coin-list{
@@ -298,26 +298,25 @@ footer{
 
   #date{
     display:flex;
-    margin: 0 auto;
+    margin: 0 0 0 48px;
   }
 
   #coin{
-    margin-left: 30px;
+    margin-left: 26px;
   }
 
   button{
     padding-top: 10px;
     margin-top: 15px;
-    margin-right: 15px;
-    margin-left: 20px;
+    margin-left: 5px;
   }
 
     .preco-historico{
     font-size: 18px;
-    margin: 10px  25px 0 15px;
+    margin: 10px  25px 0 10px;
   }
   footer{
-    margin: 80px 63px 0 0;
+    margin: 80px 0 0 0;
   }
 }
 
