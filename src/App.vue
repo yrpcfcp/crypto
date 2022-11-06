@@ -35,11 +35,11 @@
     <p>CRYPTOS SUPPORTED: terra-luna, bitcoin, dacxi, ethereum e bitcoin-atom</p>
      
   <div class="coin-list">
-    <input v-model="coin"  type="text" id="coin" name="coin" placeholder="insira o nome da crypto"> 
+    <input v-model="coin"  type="text" id="coin" name="coin" placeholder="insert crypto's name"> 
     <input v-model="date"  type="date" id="date" name="date">
     <button @click="getOldPrice()">GET PRICES</button>
   </div>
-      <h2 class="preco-historico">&nbsp;&nbsp;&nbsp;The price on &nbsp;&nbsp;{{date}}&nbsp; was US$&nbsp;{{coinHistoricValue}}</h2>
+      <h2 class="preco-historico">&nbsp;&nbsp;&nbsp;The price on &nbsp;&nbsp;{{date}}&nbsp; was R$&nbsp;{{coinHistoricValue}}</h2>
 
   
   </article>
@@ -298,11 +298,11 @@ footer{
 
   #date{
     display:flex;
-    margin: 0 0 0 48px;
+    margin: 0 0 0 47px;
   }
 
   #coin{
-    margin-left: 27px;
+    margin-left: 51px;
   }
 
   button{
@@ -313,7 +313,7 @@ footer{
 
     .preco-historico{
     font-size: 18px;
-    margin: 10px  25px 0 10px;
+    margin: 10px  25px 0 12px;
   }
   footer{
     margin: 80px 0 0 0;
