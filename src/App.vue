@@ -17,7 +17,7 @@
         BITCOIN<br><div>R$ {{ bitCoinPrice }}.00</div>
       </li>
       <li>
-        DAXCI<br><div>R$ {{ daxciCoinPrice }}</div>
+        DACXI<br><div>R$ {{ dacxiCoinPrice }}</div>
       </li>
       <li>
         ETHEREUM<br><div>R$ {{ ethereumPrice }}</div>
@@ -65,7 +65,7 @@ export default {
       coinHistoricValue: '',
       atomPrice: 0,
       bitCoinPrice: 0,
-      daxciCoinPrice: 0,
+      dacxiCoinPrice: 0,
       ethereumPrice: 0,
       lunaPrice: 0 ,
     }
@@ -76,13 +76,13 @@ export default {
   const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
   let atomPrice = res.data['bitcoin-atom'].brl
   let bitCoinPrice = res.data.bitcoin.brl
-  let daxciCoinPrice = res.data.dacxi.brl
+  let dacxiCoinPrice = res.data.dacxi.brl
   let ethereumPrice = res.data.ethereum.brl
   let lunaPrice = res.data['terra-luna'].brl
   
   this.atomPrice = atomPrice;
   this.bitCoinPrice = bitCoinPrice;
-  this.daxciCoinPrice = daxciCoinPrice;
+  this.dacxiCoinPrice = daxciCoinPrice;
   this.ethereumPrice = ethereumPrice;
   this.lunaPrice = lunaPrice;
 
