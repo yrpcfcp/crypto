@@ -11,19 +11,19 @@
   <main>
     <ul>
       <li>
-        ATOM<br><div>US$ {{ atomPrice }}</div>
+        ATOM<br><div>R$ {{ atomPrice }}</div>
       </li>
       <li>
-        BITCOIN<br><div>US$ {{ bitCoinPrice }}.00</div>
+        BITCOIN<br><div>R$ {{ bitCoinPrice }}.00</div>
       </li>
       <li>
-        DAXCI<br><div>US$ {{ daxciCoinPrice }}</div>
+        DAXCI<br><div>R$ {{ daxciCoinPrice }}</div>
       </li>
       <li>
-        ETHEREUM<br><div>US$ {{ ethereumPrice }}</div>
+        ETHEREUM<br><div>R$ {{ ethereumPrice }}</div>
       </li>
       <li>
-        LUNA(Terra Luna Classic)<br><div>US$ {{ lunaPrice }}</div>
+        LUNA(Terra Luna Classic)<br><div>R$ {{ lunaPrice }}</div>
       </li>
     </ul>
     <br><br>
@@ -74,11 +74,11 @@ export default {
   getPrice:  async function(){
    try {
   const res = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cbitcoin-atom%2Cdacxi%2Cethereum%2Cterra-luna&vs_currencies=brl&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false');
-  let atomPrice = res.data['bitcoin-atom'].usd
-  let bitCoinPrice = res.data.bitcoin.usd
-  let daxciCoinPrice = res.data.dacxi.usd
-  let ethereumPrice = res.data.ethereum.usd
-  let lunaPrice = res.data['terra-luna'].usd
+  let atomPrice = res.data['bitcoin-atom'].brl
+  let bitCoinPrice = res.data.bitcoin.brl
+  let daxciCoinPrice = res.data.dacxi.brl
+  let ethereumPrice = res.data.ethereum.brl
+  let lunaPrice = res.data['terra-luna'].brl
   
   this.atomPrice = atomPrice;
   this.bitCoinPrice = bitCoinPrice;
@@ -106,7 +106,7 @@ getOldPrice: async function(){
 
   try{
     let res = await axios.get(url);
-    let coinHistoricValue = res.data.market_data.current_price.usd
+    let coinHistoricValue = res.data.market_data.current_price.brl
     this.coinHistoricValue = coinHistoricValue
   
    
@@ -267,7 +267,7 @@ footer{
     display:flex;
     flex-direction:column;
     align-items:center;
-    margin-left: 45px; 
+    margin-left: 75px; 
      }
  .loading{
   display:none;
@@ -275,14 +275,14 @@ footer{
    ul{
     display:flex wrap;
     flex-direction:column;
-    margin: -20px 0 0 20px;
+    margin: -20px 0 0 50px;
     padding: 10px;
     max-width: 70%;
     text-align: center;
   }
   article{
     max-width:40%;
-    margin: -80px 0 0 90px;
+    margin: -80px 0 0 125px;
   }
 
   .coin-list{
@@ -290,22 +290,19 @@ footer{
     flex-direction:column;
     align-items:center;
     padding: 15px 0 15px 0;
-    margin: -30px 0 0 -10px;
+    margin: -30px 0 0 0px;
     max-width: 60%;
   }
 
-  .coin-list input{
-    display:flex;
-    justify-content:center;
-    margin: 0 0 0 25px;
-  }
+  
 
   #date{
-    margin-left: 47px;
+    display:flex;
+    margin: 0 auto;
   }
 
   #coin{
-    margin-left: 40px;
+    margin-left: 30px;
   }
 
   button{
