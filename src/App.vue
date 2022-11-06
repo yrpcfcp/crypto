@@ -308,12 +308,12 @@ footer{
   button{
     padding-top: 10px;
     margin-top: 15px;
-    margin-left: 5px;
+    margin-right: 2px;
   }
 
     .preco-historico{
     font-size: 18px;
-    margin: 10px  25px 0 11px;
+    margin: 10px  25px 0 10px;
   }
   footer{
     margin: 80px 0 0 0;
