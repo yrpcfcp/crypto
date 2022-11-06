@@ -73,15 +73,7 @@ export default {
       bitCoinPrice: 0,
       daxciCoinPrice: 0,
       ethereumPrice: 0,
-      lunaPrice: 0,
-      results:0,
-      resultsAtom: 0,
-      resultsDaxci: 0,
-      resultsEthereum: 0,
-      resultsLuna: 0,
-      selectedResult: null,
-      coins:['bitcoin-atom', 'bitcoin', 'dacxi', 'ethereum', 'terra-luna'],
-      
+      lunaPrice: 0 ,
     }
   }, methods: {
     
